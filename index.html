@@ -1,0 +1,1011 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>INTERCAMBIANDO</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: cinta métrica como cabecera; tres pestañas (Aprende / Practica / Ensayo); columna de lectura ~70ch, zona de ejercicio a dos columnas que se apilan en móvil */
+:root{
+  --bg:#f2f5f6; --surface:#ffffff; --surface-2:#e9eff1; --ink:#13222c; --muted:#55646e; --line:#cfd9dd;
+  --tape:#efb425; --tape-ink:#1b1300;
+  --teal:#0b6b75; --teal-soft:#d8ecee;
+  --ok:#1b7339; --ok-soft:#dff2e5; --bad:#b0281f; --bad-soft:#f9e0dd; --warn:#7f5400; --warn-soft:#fcf0d3;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e161b; --surface:#152028; --surface-2:#1c2a33; --ink:#e2eaee; --muted:#9aabb5; --line:#2c3c46;
+  --tape:#f0b429; --tape-ink:#1b1300;
+  --teal:#62c6cf; --teal-soft:#123a40;
+  --ok:#6bd394; --ok-soft:#12321f; --bad:#ff8f86; --bad-soft:#3b1714; --warn:#f2c35f; --warn-soft:#33280d;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e161b; --surface:#152028; --surface-2:#1c2a33; --ink:#e2eaee; --muted:#9aabb5; --line:#2c3c46;
+  --tape:#f0b429; --tape-ink:#1b1300;
+  --teal:#62c6cf; --teal-soft:#123a40;
+  --ok:#6bd394; --ok-soft:#12321f; --bad:#ff8f86; --bad-soft:#3b1714; --warn:#f2c35f; --warn-soft:#33280d;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.1;text-wrap:balance;margin:0}
+h2{font-size:1.9rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.35rem;font-weight:600}
+p{margin:0}
+sup{font-size:.68em;line-height:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+/* Cabecera */
+.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{padding-block:22px 16px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.brand h1{font-size:clamp(2.3rem,7.5vw,4.3rem);font-weight:700;letter-spacing:.03em;display:flex;align-items:flex-end;flex-wrap:nowrap}
+.el{position:relative;display:inline-block;width:1.02em;height:1.02em;margin-left:.06em;margin-bottom:.06em;border:3px solid var(--ink);background:var(--tape);color:var(--tape-ink);font-family:var(--f-body);flex:none}
+.el .z{position:absolute;top:.06em;left:.1em;font-size:.17em;font-weight:700;line-height:1}
+.el .m{position:absolute;top:.08em;right:.1em;font-size:.13em;font-weight:600;line-height:1}
+.el .s{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:.6em;font-weight:700;line-height:1;padding-bottom:.08em}
+.el .n{position:absolute;bottom:.08em;left:0;right:0;text-align:center;font-size:.12em;font-weight:600;line-height:1}
+.slogan{font-family:var(--f-display);font-size:1.15rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.tape{height:26px;background-color:var(--tape);
+  background-image:
+    repeating-linear-gradient(90deg,var(--tape-ink) 0 1.5px,transparent 1.5px 100px),
+    repeating-linear-gradient(90deg,var(--tape-ink) 0 1px,transparent 1px 50px),
+    repeating-linear-gradient(90deg,var(--tape-ink) 0 1px,transparent 1px 10px);
+  background-size:100% 18px,100% 12px,100% 7px;background-repeat:no-repeat;background-position:0 0,0 0,0 0}
+
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap}
+nav.tabs button{border:1px solid var(--line);background:var(--surface-2);padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:600;font-size:.98rem}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+main{padding-block:28px 40px}
+.view{display:grid;gap:28px}
+
+/* Aprende */
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 10px;font-size:.9rem;cursor:pointer;color:var(--muted)}
+.toc button:hover{color:var(--ink);border-color:var(--teal)}
+.lesson{display:grid;gap:14px;max-width:74ch;scroll-margin-top:16px}
+.lesson .eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.lesson ul,.lesson ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.lesson hr{border:0;border-top:1px dashed var(--line);margin:0}
+.box{border:2px solid var(--ink);background:var(--surface);padding:12px 16px;border-radius:4px}
+.box strong{font-family:var(--f-display);font-size:1.15rem;letter-spacing:.02em}
+.note{background:var(--teal-soft);padding:10px 14px;border-radius:6px;font-size:.96rem}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;font-size:.95rem;min-width:100%}
+th,td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left}
+th{font-family:var(--f-display);font-size:1.02rem;font-weight:600;letter-spacing:.03em}
+td.mono,.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.chainbox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.chain-static{font-family:var(--f-mono);font-size:1.02rem;display:inline-flex;align-items:center;flex-wrap:wrap;gap:6px 4px;white-space:nowrap}
+.sf{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .15em}
+.sf>span{padding:1px .35em}
+.sf>span:first-child{border-bottom:2px solid currentColor}
+.cx{text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px}
+.why{font-size:.93rem;color:var(--muted);margin-top:8px;display:grid;gap:2px}
+
+.flowmol{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--f-mono)}
+.flowmol .node{border:2px solid var(--ink);background:var(--surface);border-radius:6px;padding:6px 12px;font-weight:600}
+.flowmol .node:nth-child(3){background:var(--tape);color:var(--tape-ink);border-color:var(--tape-ink)}
+.flowmol .arr{display:grid;justify-items:center;font-size:1.3rem;line-height:1;color:var(--teal)}
+.flowmol .arr small{font-size:.75rem;color:var(--muted)}
+/* Escalera */
+.ladder{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:4px 12px;cursor:pointer;font-family:var(--f-mono);font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--teal);color:var(--surface);border-color:var(--teal)}
+.steps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.step{border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:8px 2px;text-align:center;cursor:pointer;display:grid;gap:2px;min-width:0}
+.step b{font-family:var(--f-mono);font-size:1.05rem}
+.step small{font-size:.72rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+.step.base{border-color:var(--ink)}
+.step.inrange{background:var(--teal-soft)}
+.step.from{background:var(--tape);color:var(--tape-ink);border-color:var(--tape-ink)}
+.step.from small,.step.to small{color:inherit}
+.step.to{background:var(--teal);color:var(--surface);border-color:var(--teal)}
+.ladder-out{font-size:.98rem;min-height:3em}
+
+/* Practica */
+.practice{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:780px){.practice{grid-template-columns:1fr}}
+.cats{display:grid;gap:4px}
+.cats h3{font-size:1.1rem;color:var(--muted);margin-bottom:4px}
+.cat{display:flex;justify-content:space-between;align-items:baseline;gap:8px;text-align:left;border:1px solid transparent;background:transparent;border-radius:6px;padding:7px 10px;cursor:pointer}
+.cat:hover{background:var(--surface)}
+.cat[aria-pressed="true"]{background:var(--surface);border-color:var(--ink)}
+.cat span:first-child{font-weight:600}
+.cat small{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.tag{font-family:var(--f-mono);font-size:.7rem;background:var(--tape);color:var(--tape-ink);padding:1px 6px;border-radius:3px;margin-left:6px;font-weight:600}
+.sep{border-top:1px solid var(--line);margin:6px 0}
+@media (max-width:780px){.cats{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.cats h3,.sep{grid-column:1/-1}.cat small{display:none}}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:16px;min-width:0}
+.card-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{font-family:var(--f-mono);font-size:.8rem;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.score{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.prompt{font-size:1.35rem}
+.prompt b{font-family:var(--f-mono);font-weight:600}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.qty{font-family:var(--f-mono);font-size:1.15rem;font-weight:600}
+.op{font-family:var(--f-mono);font-size:1.3rem;color:var(--muted)}
+.frac{position:relative;display:grid;grid-template-rows:auto 2px auto;gap:6px;padding:8px 8px 8px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2)}
+.frow{display:flex;gap:4px}
+.fbar{background:var(--ink)}
+input[type=text]{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 8px;font-family:var(--f-mono);font-size:16px;min-width:0}
+.frac input{width:6.6em}
+select{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 4px;font-family:var(--f-mono);font-size:16px}
+.fdel{position:absolute;top:-9px;right:-9px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:.85rem;line-height:1;display:grid;place-items:center;color:var(--muted)}
+.addf{border:1px dashed var(--teal);color:var(--teal);background:transparent;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:600}
+.res{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.res input{width:10em}
+.pow{border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:6px 8px;cursor:pointer;font-family:var(--f-mono);font-size:.9rem}
+.preview{font-family:var(--f-mono);font-size:.82rem;color:var(--muted);min-height:1.2em}
+.remain{font-size:.95rem;color:var(--muted);display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.remain b{font-family:var(--f-mono);color:var(--ink)}
+.remain.match b{color:var(--ok)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn:hover{border-color:var(--teal)}
+.fb{display:grid;gap:6px}
+.msg{padding:8px 12px;border-radius:6px;font-size:.96rem;border-left:4px solid}
+.msg.ok{background:var(--ok-soft);border-color:var(--ok)}
+.msg.bad{background:var(--bad-soft);border-color:var(--bad)}
+.msg.warn{background:var(--warn-soft);border-color:var(--warn)}
+.msg.info{background:var(--teal-soft);border-color:var(--teal)}
+.sol{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:8px}
+.help{font-size:.9rem;color:var(--muted)}
+
+/* Examen */
+.exam-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.exam-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px}
+@media (max-width:780px){.exam-list{grid-template-columns:1fr}}
+.q{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:4px 8px;align-items:start;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+.exam-list.wide{grid-template-columns:1fr}
+.q .qbody{display:grid;gap:8px;min-width:0}
+.q details summary{cursor:pointer;color:var(--teal);font-weight:600;margin-top:4px}
+.q details .chainbox{margin-top:6px}
+.okmark{color:var(--ok);font-weight:700}
+.q .num{font-family:var(--f-display);font-weight:700;font-size:1.2rem;color:var(--muted)}
+.q .txt{font-family:var(--f-mono);font-size:.98rem}
+.q .ans{grid-column:2;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.q .ans input{width:9.5em}
+.q .corr{font-size:.92rem;display:grid;gap:6px}
+.q.ok{border-color:var(--ok);background:var(--ok-soft)}
+.q.bad{border-color:var(--bad);background:var(--bad-soft)}
+.grade{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;background:var(--surface);border:2px solid var(--ink);border-radius:10px;padding:14px 18px}
+.grade .big{font-family:var(--f-display);font-size:3.2rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+label.chk{display:flex;gap:8px;align-items:center;cursor:pointer}
+
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-block:18px;font-size:.88rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+footer a{color:var(--teal)}
+@media (prefers-reduced-motion:no-preference){.msg{animation:fade .25s ease-out}@keyframes fade{from{opacity:.4;transform:translateY(-2px)}to{opacity:1;transform:none}}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1 aria-label="Intercambiando">INTERCAMBIAND<span class="el" aria-hidden="true"><span class="z">8</span><span class="m">16,00</span><span class="s">O</span><span class="n">Oxígeno</span></span></h1>
+      <p class="slogan">Aprende · Convierte · Domina</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Secciones">
+      <button role="tab" id="tab-aprende" data-view="aprende" aria-selected="true">Aprende</button>
+      <button role="tab" id="tab-practica" data-view="practica" aria-selected="false">Practica</button>
+      <button role="tab" id="tab-examen" data-view="examen" aria-selected="false">Ensayo de examen</button>
+    </nav>
+  </div>
+  <div class="tape" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+
+<!-- ===================== APRENDE ===================== -->
+<section class="view" id="view-aprende">
+  <div class="toc" id="toc"></div>
+
+  <article class="lesson" id="l-medir">
+    <span class="eyebrow">Paso 1</span>
+    <h2>Magnitud, medida y unidad</h2>
+    <p><b>Magnitud</b> es cualquier propiedad que se puede medir: la masa, la longitud, el tiempo, la velocidad, la temperatura… La belleza o la simpatía no son magnitudes porque no se pueden medir.</p>
+    <p><b>Medir</b> es comparar una magnitud con otra de la misma clase que tomamos como referencia. Esa referencia es la <b>unidad</b>, una cantidad elegida por convenio a la que damos el valor 1.</p>
+    <p>Para que todo el mundo use las mismas referencias existe el <b>Sistema Internacional (SI)</b>. Se basa en siete <b>magnitudes fundamentales</b>, que no dependen de ninguna otra:</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Magnitud fundamental</th><th>Unidad SI</th><th>Símbolo</th></tr></thead>
+      <tbody>
+        <tr><td>Longitud</td><td>metro</td><td class="mono">m</td></tr>
+        <tr><td>Masa</td><td>kilogramo</td><td class="mono">kg</td></tr>
+        <tr><td>Tiempo</td><td>segundo</td><td class="mono">s</td></tr>
+        <tr><td>Temperatura</td><td>kelvin</td><td class="mono">K</td></tr>
+        <tr><td>Cantidad de sustancia</td><td>mol</td><td class="mono">mol</td></tr>
+        <tr><td>Intensidad de corriente eléctrica</td><td>amperio</td><td class="mono">A</td></tr>
+        <tr><td>Intensidad luminosa</td><td>candela</td><td class="mono">cd</td></tr>
+      </tbody>
+    </table></div>
+    <p>Las <b>magnitudes derivadas</b> se obtienen combinando las fundamentales, y sus unidades también:</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Magnitud derivada</th><th>Unidad SI</th><th>Símbolo</th><th>Se obtiene de</th></tr></thead>
+      <tbody>
+        <tr><td>Superficie</td><td>metro cuadrado</td><td class="mono">m²</td><td>longitud × longitud</td></tr>
+        <tr><td>Volumen</td><td>metro cúbico</td><td class="mono">m³</td><td>longitud³</td></tr>
+        <tr><td>Velocidad</td><td>metro por segundo</td><td class="mono">m/s</td><td>longitud / tiempo</td></tr>
+        <tr><td>Densidad</td><td>kilogramo por metro cúbico</td><td class="mono">kg/m³</td><td>masa / volumen</td></tr>
+        <tr><td>Presión</td><td>pascal</td><td class="mono">Pa = N/m²</td><td>fuerza / superficie</td></tr>
+      </tbody>
+    </table></div>
+    <p class="help">En los ejercicios de esta web no se trabaja con el amperio ni con la candela.</p>
+    <p class="note">Fíjate: la unidad SI de masa es el <b>kilogramo</b>, aunque la escala de prefijos se construye a partir del gramo. Y los símbolos de las unidades no llevan punto ni plural: <span class="mono">5 kg</span>, nunca «5 kgs.».</p>
+  </article>
+
+  <article class="lesson" id="l-factor">
+    <span class="eyebrow">Paso 2</span>
+    <h2>El factor de conversión</h2>
+    <p>Para cambiar de unidad multiplicamos la cantidad por una fracción que vale exactamente 1, porque arriba y abajo hay la misma cantidad escrita con unidades distintas. Multiplicar por 1 no cambia la cantidad; solo cambia cómo la escribimos.</p>
+    <div class="box">
+      <strong>Cómo se construye el factor</strong>
+      <ol>
+        <li>Arriba (numerador) va la unidad <b>a la que quieres llegar</b>.</li>
+        <li>Abajo (denominador) va la unidad <b>que quieres eliminar</b>.</li>
+        <li>Pon un <b>1 delante de la unidad mayor</b>; el número de la otra sale de la escalera de unidades.</li>
+        <li>Tacha las unidades que se repiten arriba y abajo y opera.</li>
+      </ol>
+    </div>
+    <p>Ejemplo: pasar 20 dg a hg. Entre dg y hg hay 3 escalones, así que 1 hg = 1000 dg.</p>
+    <div class="chainbox" data-example="20|dg|hg"></div>
+    <p>Otro: pasar 8 km a cm. Hay 5 escalones, luego 1 km = 100 000 cm.</p>
+    <div class="chainbox" data-example="8|km|cm"></div>
+  </article>
+
+  <article class="lesson" id="l-escalera">
+    <span class="eyebrow">Paso 3</span>
+    <h2>La escalera de unidades</h2>
+    <p>Los múltiplos y submúltiplos se forman con prefijos. En longitud, masa y capacidad cada escalón multiplica o divide por 10. Pulsa una unidad de partida y luego la de llegada.</p>
+    <div class="ladder" id="ladder">
+      <div class="chips" id="ladder-fams" role="group" aria-label="Escala"></div>
+      <div class="steps" id="ladder-steps"></div>
+      <div class="ladder-out" id="ladder-out"></div>
+    </div>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Prefijo</th><th>Símbolo</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>kilo</td><td class="mono">k</td><td class="mono">1000 = 10³</td></tr>
+        <tr><td>hecto</td><td class="mono">h</td><td class="mono">100 = 10²</td></tr>
+        <tr><td>deca</td><td class="mono">da</td><td class="mono">10</td></tr>
+        <tr><td>deci</td><td class="mono">d</td><td class="mono">0,1 = 10⁻¹</td></tr>
+        <tr><td>centi</td><td class="mono">c</td><td class="mono">0,01 = 10⁻²</td></tr>
+        <tr><td>mili</td><td class="mono">m</td><td class="mono">0,001 = 10⁻³</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box">
+      <strong>Fuera de la escalera: mega, micro y nano</strong>
+      <p style="margin-top:6px">Estos prefijos no son escalones contiguos de la escalera: saltan de 1000 en 1000. Por eso no se cuentan escalones; se usa directamente su potencia de 10.</p>
+      <div class="tblwrap" style="margin-top:8px"><table>
+        <thead><tr><th>Prefijo</th><th>Símbolo</th><th>Valor</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>mega</td><td class="mono">M</td><td class="mono">1 000 000 = 10⁶</td><td class="mono">1 MW = 10⁶ W</td></tr>
+          <tr><td>micro</td><td class="mono">µ</td><td class="mono">0,000001 = 10⁻⁶</td><td class="mono">1 m = 10⁶ µm</td></tr>
+          <tr><td>nano</td><td class="mono">n</td><td class="mono">0,000000001 = 10⁻⁹</td><td class="mono">1 m = 10⁹ nm</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:8px">Ejemplo: un glóbulo rojo mide unos 7 µm. En metros: <span class="mono">7 µm · (1 m / 10⁶ µm) = 7·10⁻⁶ m</span>. Ojo con las mayúsculas: <span class="mono">M</span> es mega y <span class="mono">m</span> es mili.</p>
+    </div>
+  </article>
+
+  <article class="lesson" id="l-supvol">
+    <span class="eyebrow">Paso 4</span>
+    <h2>Superficie y volumen</h2>
+    <p>Las unidades de superficie (m²) usan los mismos prefijos, pero cada escalón vale <b>100</b>: cada salto cuenta dos ceros. En las de volumen (m³) cada escalón vale <b>1000</b>: cada salto cuenta tres ceros.</p>
+    <p>Pasar 20 cm² a dm²: 1 escalón × 2 ceros → 1 dm² = 100 cm².</p>
+    <div class="chainbox" data-example="20|cm2|dm2"></div>
+    <p>Pasar 5 mm³ a dam³: 4 escalones × 3 ceros = 12 → 1 dam³ = 10¹² mm³. Con tantos ceros hace falta la notación científica.</p>
+    <div class="chainbox" data-example="5|mm3|dam3"></div>
+  </article>
+
+  <article class="lesson" id="l-capacidad">
+    <span class="eyebrow">Paso 5</span>
+    <h2>Capacidad y su relación con el volumen</h2>
+    <p>La capacidad se mide en litros (L, también se admite l). Su escala va de 10 en 10, como la de longitud y la de masa. Como la capacidad también es un volumen, las dos escalas se pueden relacionar.</p>
+    <p>Si mides un tetrabrik de 1 L y multiplicas sus tres aristas en centímetros, obtendrás unos 1000 cm³, es decir, 1 dm³.</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th class="mono">km³</th><th class="mono">hm³</th><th class="mono">dam³</th><th class="mono">m³</th><th class="mono">dm³</th><th class="mono">cm³</th><th class="mono">mm³</th></tr></thead>
+      <tbody><tr><td></td><td></td><td></td><td class="mono"><b>kL</b></td><td class="mono"><b>L</b></td><td class="mono"><b>mL</b></td><td></td></tr></tbody>
+    </table></div>
+    <div class="box">
+      <strong>Apréndete bien que</strong>
+      <ul>
+        <li><span class="mono">1 L = 1 dm³</span></li>
+        <li><span class="mono">1 mL = 1 cm³</span></li>
+        <li><span class="mono">1 kL = 1 m³</span></li>
+      </ul>
+    </div>
+    <p>Pasar 34 dm³ a kL: primero cambiamos de escala (dm³ = L) y luego seguimos en la de capacidad.</p>
+    <div class="chainbox" data-example="34|dm3|kL"></div>
+  </article>
+
+  <article class="lesson" id="l-notacion">
+    <span class="eyebrow">Paso 6</span>
+    <h2>Notación científica</h2>
+    <p>Un número en notación científica tiene <b>una sola cifra entera distinta de cero</b> multiplicada por una potencia de 10: <span class="mono">3,456·10³</span>.</p>
+    <ul>
+      <li><b>Números grandes → exponente positivo.</b> Cuenta cuántos puestos mueves la coma hacia la izquierda: <span class="mono">23 446 100 ≈ 2,34·10⁷</span>; <span class="mono">1 000 000 000 = 10⁹</span>.</li>
+      <li><b>Números pequeños → exponente negativo.</b> Cuenta cuántos puestos mueves la coma hacia la derecha hasta dejar una cifra entera: <span class="mono">0,0234 = 2,34·10⁻²</span>; <span class="mono">0,000035 = 3,5·10⁻⁵</span>.</li>
+      <li>Al <b>multiplicar</b> potencias se suman los exponentes: <span class="mono">10⁵·10³ = 10⁸</span>. Al <b>dividir</b> se restan: <span class="mono">10⁵/10² = 10³</span>.</li>
+      <li>Si la cifra entera no queda sola, se corrige: <span class="mono">546,29·10³ = 5,4629·10²·10³ ≈ 5,46·10⁵</span>.</li>
+    </ul>
+    <p class="note">En esta web puedes escribir la potencia así: <span class="mono">2,5·10^-3</span>, <span class="mono">2,5x10^-3</span> o <span class="mono">2,5e-3</span>. Usa la coma decimal. Debajo de la casilla verás cómo se ha entendido tu número.</p>
+  </article>
+
+  <article class="lesson" id="l-tiempo">
+    <span class="eyebrow">Paso 7</span>
+    <h2>Unidades de tiempo</h2>
+    <p>Esta escala no va de 10 en 10, pero las equivalencias son conocidas. El método es el mismo: el 1 delante de la unidad mayor.</p>
+    <div class="box"><ul class="mono">
+      <li>1 min = 60 s</li><li>1 h = 60 min = 3600 s</li><li>1 d = 24 h</li><li>1 semana = 7 d</li><li>1 mes ≈ 30 d</li><li>1 año ≈ 365 d</li>
+    </ul></div>
+    <p>Pasar 20 s a min:</p>
+    <div class="chainbox" data-example="20|s|min"></div>
+    <p>A veces hay que encadenar varios factores. Pasar 8 meses a horas:</p>
+    <div class="chainbox" data-example="8|mes|h"></div>
+  </article>
+
+  <article class="lesson" id="l-derivadas">
+    <span class="eyebrow">Paso 8</span>
+    <h2>Magnitudes derivadas</h2>
+    <p>Las magnitudes derivadas se obtienen a partir de otras y suelen llevar unidades compuestas, como km/h o g/cm³. Se usa <b>un factor por cada unidad que haya que cambiar</b>.</p>
+    <p>Pasar 100 km/h a m/s. El km está arriba, así que en su factor va abajo. La h está dividiendo, así que en su factor va arriba.</p>
+    <div class="chainbox" data-example="100|km/h|m/s"></div>
+    <p>Pasar 38 g/cm³ a kg/L. Como 1 L = 1000 cm³ y 1 kg = 1000 g, el resultado sale igual: 38 kg/L.</p>
+    <div class="chainbox" data-example="38|g/cm3|kg/L"></div>
+  </article>
+
+  <article class="lesson" id="l-temp">
+    <span class="eyebrow">Paso 9</span>
+    <h2>Temperatura: °C y K</h2>
+    <p>Aquí <b>no se usan factores de conversión</b>. Las escalas Celsius y Kelvin tienen los grados del mismo tamaño, pero empiezan en sitios distintos: 0 K es el cero absoluto, que corresponde a −273,15 °C. Por eso basta con sumar o restar.</p>
+    <div class="box"><span class="mono"><b>T (K) = t (°C) + 273</b></span><br><span class="mono"><b>t (°C) = T (K) − 273</b></span></div>
+    <p>Ejemplos: 25 °C → 25 + 273 = 298 K. 77 K → 77 − 273 = −196 °C.</p>
+    <p class="note">El kelvin no lleva símbolo de grado: se escribe <span class="mono">298 K</span>, no «298 °K». Con el valor exacto se usa 273,15; en esta web se aceptan las dos formas.</p>
+  </article>
+
+  <article class="lesson" id="l-presion">
+    <span class="eyebrow">Paso 10 · 3º ESO</span>
+    <h2>Unidades de presión</h2>
+    <p>La unidad SI de presión es el <b>pascal</b> (Pa), que es muy pequeño. Por eso se usan también otras unidades: la atmósfera (atm), el milímetro de mercurio (mmHg), el bar y el hectopascal (hPa) de los mapas del tiempo.</p>
+    <div class="box"><ul class="mono">
+      <li>1 atm = 760 mmHg</li>
+      <li>1 atm = 101 325 Pa ≈ 101 300 Pa</li>
+      <li>1 atm = 1013,25 hPa = 1,01325 bar</li>
+      <li>1 bar = 100 000 Pa = 10⁵ Pa</li>
+      <li>1 hPa = 100 Pa = 1 mbar</li>
+    </ul></div>
+    <p>Pasar 1,5 atm a mmHg:</p>
+    <div class="chainbox" data-example="1.5|atm|mmHg"></div>
+    <p>Pasar 380 mmHg a Pa, pasando por la atmósfera:</p>
+    <div class="chainbox" data-example="380|mmHg|Pa"></div>
+  </article>
+
+  <article class="lesson" id="l-mol">
+    <span class="eyebrow">Paso 11 · 4º ESO</span>
+    <h2>El mol: masa, moles y partículas</h2>
+    <p>Los átomos y las moléculas son tan pequeños que no se pueden contar uno a uno. Por eso los químicos los cuentan por paquetes. Ese paquete es el <b>mol</b>, la unidad SI de la cantidad de sustancia.</p>
+    <div class="box">
+      <strong>Dos equivalencias que hacen de factor de conversión</strong>
+      <ul>
+        <li><b>Número de Avogadro:</b> <span class="mono">1 mol = 6,022·10²³ partículas</span> (átomos, moléculas…)</li>
+        <li><b>Masa molar (M):</b> <span class="mono">1 mol = M gramos</span>. M es la suma de las masas atómicas de la fórmula, expresada en g/mol.</li>
+      </ul>
+    </div>
+    <div class="flowmol" aria-label="Masa, moles y partículas">
+      <span class="node">masa (g)</span><span class="arr">⇄<small>M</small></span><span class="node">cantidad (mol)</span><span class="arr">⇄<small>N<sub>A</sub></small></span><span class="node">partículas</span>
+    </div>
+    <p>El mol está siempre en el centro: para ir de masa a partículas, o al revés, se pasa por los moles con dos factores.</p>
+    <p>Masa molar del agua: <span class="mono">M(H<sub>2</sub>O) = 2·1 + 16 = 18 g/mol</span>, así que 1 mol de H<sub>2</sub>O = 18 g.</p>
+    <p>¿Cuántos moles hay en 36 g de agua?</p>
+    <div class="chainbox" data-mol="36|g|mol|H2O"></div>
+    <p>¿Cuántas moléculas hay en 2 mol de CO<sub>2</sub>?</p>
+    <div class="chainbox" data-mol="2|mol|molec|CO2"></div>
+    <p>¿Cuántas moléculas hay en 9 g de agua? Primero a moles y después a moléculas:</p>
+    <div class="chainbox" data-mol="9|g|molec|H2O"></div>
+    <p><b>Paso adicional: los átomos de cada elemento.</b> La fórmula dice cuántos átomos de cada elemento tiene una molécula: en H<sub>2</sub>O hay 2 átomos de H y 1 de O. Ese número es un factor más, <span class="mono">1 molécula = 2 átomos de H</span>.</p>
+    <p>¿Cuántos átomos de H hay en 9 g de agua?</p>
+    <div class="chainbox" data-mol="9|g|at_H|H2O"></div>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Elemento</th><th class="mono">H</th><th class="mono">C</th><th class="mono">N</th><th class="mono">O</th><th class="mono">Na</th><th class="mono">Mg</th><th class="mono">Al</th><th class="mono">S</th><th class="mono">Cl</th><th class="mono">K</th><th class="mono">Ca</th><th class="mono">Fe</th><th class="mono">Cu</th></tr></thead>
+      <tbody><tr><td>Masa atómica (u)</td><td class="mono">1</td><td class="mono">12</td><td class="mono">14</td><td class="mono">16</td><td class="mono">23</td><td class="mono">24</td><td class="mono">27</td><td class="mono">32</td><td class="mono">35,5</td><td class="mono">39</td><td class="mono">40</td><td class="mono">56</td><td class="mono">63,5</td></tr></tbody>
+    </table></div>
+    <p class="note">En los compuestos iónicos, como el NaCl o el CaCO<sub>3</sub>, no hay moléculas; por eso con ellos solo se practica el paso entre masa y moles. En los metales, las partículas son átomos.</p>
+    <hr>
+    <h3>Volumen molar de un gas</h3>
+    <p>En los gases las partículas están muy separadas, de modo que el volumen que ocupan casi no depende de su tamaño. Por eso <b>un mol de cualquier gas ocupa el mismo volumen</b> si la presión y la temperatura son las mismas.</p>
+    <div class="box">
+      <strong>Volumen molar en condiciones normales (CN)</strong>
+      <p class="mono" style="margin-top:6px">0 °C (273 K) y 1 atm → 1 mol de gas = 22,4 L</p>
+    </div>
+    <div class="flowmol" aria-label="Moles y volumen de gas">
+      <span class="node">cantidad (mol)</span><span class="arr">⇄<small>V<sub>m</sub></small></span><span class="node">volumen de gas (L, CN)</span>
+    </div>
+    <p>¿Cuántos moles hay en 11,2 L de O<sub>2</sub> medidos en CN?</p>
+    <div class="chainbox" data-mol="11.2|L|mol|O2"></div>
+    <p>¿Qué volumen ocupan 88 g de CO<sub>2</sub> en CN? Primero a moles con la masa molar y después a litros con el volumen molar:</p>
+    <div class="chainbox" data-mol="88|g|L|CO2"></div>
+    <p class="note">El volumen molar solo sirve para <b>gases</b>: un mol de agua líquida ocupa unos 18 mL, no 22,4 L. Además, las «condiciones estándar» actuales de la IUPAC son 273,15 K y 1 bar, y en ellas el volumen molar vale 22,7 L; en esta web se usan las condiciones normales clásicas (1 atm), con 22,4 L.</p>
+  </article>
+</section>
+
+<!-- ===================== PRACTICA ===================== -->
+<section class="view" id="view-practica" hidden>
+  <div class="practice">
+    <div class="cats" id="cats" role="group" aria-label="Tipo de ejercicio"></div>
+    <div class="card" id="excard"></div>
+  </div>
+</section>
+
+<!-- ===================== EXAMEN ===================== -->
+<section class="view" id="view-examen" hidden>
+  <div class="exam-head">
+    <div style="display:grid;gap:6px;max-width:62ch">
+      <h2>Ensayo de examen</h2>
+      <p>Veinte cambios de unidades, a 0,5 puntos cada uno. Cada cambio solo cuenta si los factores de conversión están bien planteados, las unidades se simplifican y el resultado es correcto. Usa notación científica en los resultados de más de 4 cifras.</p>
+    </div>
+    <div style="display:grid;gap:8px">
+      <label class="chk"><input type="checkbox" id="exam-factors" checked> Exigir los factores de conversión</label>
+      <label class="chk"><input type="checkbox" id="exam-pres"> Incluir presión (3º ESO)</label>
+      <button class="btn" id="exam-new">Nuevo ensayo</button>
+    </div>
+  </div>
+  <div class="exam-list" id="exam-list"></div>
+  <div class="actions"><button class="btn primary" id="exam-check">Corregir</button></div>
+  <div id="exam-grade"></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>INTERCAMBIANDO</b> · Francisco González Calle</span>
+    <span>Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Unidades ---------- */
+const FAMS={
+  masa:{dim:'masa',units:['kg','hg','dag','g','dg','cg','mg'],e0:0,step:1,names:['kilogramo','hectogramo','decagramo','gramo','decigramo','centigramo','miligramo']},
+  longitud:{dim:'longitud',units:['km','hm','dam','m','dm','cm','mm'],e0:3,step:1,names:['kilómetro','hectómetro','decámetro','metro','decímetro','centímetro','milímetro']},
+  superficie:{dim:'superficie',units:['km2','hm2','dam2','m2','dm2','cm2','mm2'],e0:6,step:2,names:['km cuadrado','hm cuadrado','dam cuadrado','m cuadrado','dm cuadrado','cm cuadrado','mm cuadrado']},
+  volumen:{dim:'volumen',units:['km3','hm3','dam3','m3','dm3','cm3','mm3'],e0:9,step:3,names:['km cúbico','hm cúbico','dam cúbico','m cúbico','dm cúbico','cm cúbico','mm cúbico']},
+  capacidad:{dim:'volumen',units:['kL','hL','daL','L','dL','cL','mL'],e0:0,step:1,names:['kilolitro','hectolitro','decalitro','litro','decilitro','centilitro','mililitro']}
+};
+const U={};
+for(const k in FAMS){const f=FAMS[k];f.units.forEach((s,i)=>{U[s]={sym:s,dim:f.dim,fam:k,e:f.e0-i*f.step,idx:i}})}
+[['s',1],['min',60],['h',3600],['d',86400],['sem',604800],['mes',2592000],['año',31536000]].forEach(([s,v])=>U[s]={sym:s,dim:'tiempo',fam:'tiempo',si:v});
+[['Pa',1],['hPa',100],['mbar',100],['kPa',1000],['bar',1e5],['atm',101325],['mmHg',101325/760]].forEach(([s,v])=>U[s]={sym:s,dim:'presion',fam:'presion',si:v});
+U.mol={sym:'mol',dim:'cantidad',fam:'mol',si:1};
+U.molec={sym:'molec',dim:'particulas',fam:'mol',si:1};
+U.at={sym:'at',dim:'particulas',fam:'mol',si:1};
+const DISP={molec:'moléculas',at:'átomos'};
+const SING={molec:'molécula',at:'átomo'};
+function ensureAt(el){const s='at_'+el;if(!U[s]){U[s]={sym:s,dim:'atomos_'+el,fam:'mol',si:1,el};DISP[s]='átomos de '+el;SING[s]='átomo de '+el}return s}
+const DIM_UNITS={masa:FAMS.masa.units,longitud:FAMS.longitud.units,superficie:FAMS.superficie.units,
+  volumen:FAMS.volumen.units.concat(FAMS.capacidad.units),tiempo:['año','mes','sem','d','h','min','s'],presion:['atm','bar','mbar','hPa','kPa','Pa','mmHg']};
+const EDGES={
+  tiempo:[['min','s',60],['h','min',60],['h','s',3600],['d','h',24],['sem','d',7],['mes','d',30],['año','d',365]],
+  presion:[['atm','mmHg',760],['atm','Pa',101325],['atm','hPa',1013.25],['bar','Pa',1e5],['atm','bar',1.01325],['hPa','Pa',100],['kPa','Pa',1000],['mbar','hPa',1],['bar','mbar',1000],['kPa','hPa',10]]
+};
+const clean=n=>Number(Number(n).toPrecision(12));
+function si(s){const u=U[s];return u.e!==undefined?Math.pow(10,u.e):u.si}
+function ratio(a,b){const A=U[a],B=U[b];if(A.e!==undefined&&B.e!==undefined)return Math.pow(10,A.e-B.e);return A.si/B.si}
+const isMetric=s=>!!FAMS[U[s].fam];
+
+function path(a,b){
+  if(a===b)return[a];
+  const A=U[a],B=U[b];
+  if(A.fam===B.fam&&FAMS[A.fam])return[a,b];
+  if(A.dim==='volumen'){
+    const mate={m3:'kL',dm3:'L',cm3:'mL',kL:'m3',L:'dm3',mL:'cm3'};let p;
+    if(A.fam==='volumen'){p=mate[b]?[a,mate[b],b]:[a,'dm3','L',b]}
+    else{p=mate[a]?[a,mate[a],b]:[a,'L','dm3',b]}
+    return p.filter((x,i)=>i===0||x!==p[i-1]);
+  }
+  const E=EDGES[A.fam],adj={};
+  E.forEach(([x,y])=>{(adj[x]=adj[x]||[]).push(y);(adj[y]=adj[y]||[]).push(x)});
+  const prev={[a]:null},q=[a];
+  while(q.length){const x=q.shift();if(x===b)break;(adj[x]||[]).forEach(y=>{if(!(y in prev)){prev[y]=x;q.push(y)}})}
+  const out=[];let c=b;while(c!==null){out.unshift(c);c=prev[c]}return out;
+}
+function eq(x,y){const r=ratio(x,y);return r>=1?{vx:1,vy:clean(r)}:{vx:clean(1/r),vy:1}}
+
+/* ---------- Composición de unidades ---------- */
+function comp(str){const c={};const[n,d]=str.split('/');add(c,n,1);if(d)add(c,d,-1);return c}
+function add(c,s,e){c[s]=(c[s]||0)+e;if(c[s]===0)delete c[s]}
+function compEq(a,b){const ka=Object.keys(a),kb=Object.keys(b);return ka.length===kb.length&&ka.every(k=>a[k]===b[k])}
+function siComp(c){let v=1;for(const k in c)v*=Math.pow(si(k),c[k]);return v}
+const ud=s=>DISP[s]||s.replace(/([23])$/,'<sup>$1</sup>');
+const optLabel=s=>DISP[s]||s.replace(/2$/,'²').replace(/3$/,'³');
+function compHtml(c){
+  const num=[],den=[];
+  for(const k in c){const e=Math.abs(c[k]);const t=ud(k)+(e>1?'<sup>'+e+'</sup>':'');(c[k]>0?num:den).push(t)}
+  if(!num.length&&!den.length)return'(sin unidades)';
+  return(num.length?num.join('·'):'1')+(den.length?'/'+den.join('·'):'');
+}
+
+/* ---------- Números ---------- */
+const SUP={'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9','⁻':'-','⁺':'+'};
+function plainNum(t){
+  if(t.includes(',')&&t.includes('.'))t=t.replace(/\./g,'').replace(',','.');
+  else if(t.includes(','))t=t.replace(',','.');
+  else if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+$/.test(t))t=t.replace(/\./g,'');
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(t))return null;
+  return parseFloat(t);
+}
+function parseNum(raw){
+  let s=String(raw||'').trim();if(!s)return null;
+  s=s.replace(/\s+/g,'').replace(/[−–—]/g,'-');
+  s=s.replace(/10([⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,g)=>'10^'+[...g].map(c=>SUP[c]).join(''));
+  s=s.replace(/^(.+?)[eE]([+-]?\d+)$/,'$1·10^$2');
+  const m=s.match(/^(.*?)[·×xX*.]?10\^\(?([+-]?\d+)\)?$/);
+  if(m){const mant=m[1]===''?1:(m[1]==='-'?-1:plainNum(m[1]));if(mant===null||isNaN(mant))return null;const ex=parseInt(m[2],10);return{value:mant*Math.pow(10,ex),sci:true,mant,exp:ex}}
+  const v=plainNum(s);if(v===null||isNaN(v))return null;return{value:v,sci:false};
+}
+const minus=s=>String(s).replace(/-/g,'−');
+function sciHtml(x,prec){
+  if(x===0)return'0';
+  let ex=Math.floor(Math.log10(Math.abs(x)));let m=Number((x/Math.pow(10,ex)).toPrecision(prec||4));
+  if(Math.abs(m)>=10){m=Number((m/10).toPrecision(prec||4));ex++}
+  const ms=m===1?'':m===-1?'−':minus(String(m).replace('.',','))+'·';
+  return ms+'10<sup>'+minus(ex)+'</sup>';
+}
+function fmt(x){
+  if(x===0)return'0';const ax=Math.abs(x);
+  if(ax>=1e-3&&ax<1e6){const s=String(Number(x.toPrecision(6)));if(!/e/.test(s))return minus(s.replace('.',','))}
+  return sciHtml(x,4);
+}
+function fmtF(v){ // número dentro de un factor
+  if(Number.isInteger(v)&&v>=1e5&&Math.abs(Math.log10(v)%1)<1e-12)return'10<sup>'+Math.round(Math.log10(v))+'</sup>';
+  if(v<1e-3&&Math.abs(Math.log10(v)%1)<1e-12)return'10<sup>'+minus(Math.round(Math.log10(v)))+'</sup>';
+  if(Number.isInteger(v)&&v<1e7)return String(v);
+  return fmt(v);
+}
+function fmtRes(x){
+  if(x===0)return'0';
+  const exact=Math.abs(Number(x.toPrecision(6))-x)/Math.abs(x)<1e-9;
+  const y=exact?x:Number(x.toPrecision(3));
+  let h=(exact?'':'≈ ')+fmt(y);
+  const ax=Math.abs(y);
+  if(ax>=1e4&&ax<1e6)h+=' = '+sciHtml(y,4);
+  return h;
+}
+const relErr=(a,b)=>Math.abs(a-b)/Math.max(Math.abs(b),1e-300);
+
+/* ---------- Factores canónicos y cadena ---------- */
+function canonFactors(srcStr,tgtStr){
+  const[sn,sd]=srcStr.split('/'),[tn,td]=tgtStr.split('/');const F=[];
+  const conv=(a,b,inDen)=>{const p=path(a,b);for(let i=0;i<p.length-1;i++){const x=p[i],y=p[i+1],e=eq(x,y);
+    F.push(inDen?{num:{v:e.vx,u:x},den:{v:e.vy,u:y}}:{num:{v:e.vy,u:y},den:{v:e.vx,u:x}})}};
+  if(sn!==tn)conv(sn,tn,false);
+  if(sd&&td&&sd!==td)conv(sd,td,true);
+  return F;
+}
+function chainHtml(value,srcStr,F,tgtStr,valueHtml,want,resOverride){
+  const tgt=comp(tgtStr);
+  const u=s=>tgt[s]?ud(s):'<span class="cx">'+ud(s)+'</span>';
+  const[sn,sd]=srcStr.split('/');
+  const vh=valueHtml||fmt(value);
+  let start=sd?'<span class="sf"><span>'+vh+' '+u(sn)+'</span><span>'+u(sd)+'</span></span>':vh+' '+u(sn);
+  let h='<span class="chain-static">'+start;
+  const uu=(v,s)=>{const t=(v===1&&SING[s])?SING[s]:ud(s);return tgt[s]?t:'<span class="cx">'+t+'</span>'};
+  F.forEach(f=>{h+=' <span>·</span> <span class="sf"><span>'+fmtF(f.num.v)+' '+uu(f.num.v,f.num.u)+'</span><span>'+fmtF(f.den.v)+' '+uu(f.den.v,f.den.u)+'</span></span>'});
+  const res=resOverride!==undefined?resOverride:value*siComp(comp(srcStr))/siComp(tgt);
+  let rh=fmtRes(res);
+  if(want==='sci')rh=(Math.abs(Number(res.toPrecision(6))-res)/Math.abs(res)<1e-9?'':'≈ ')+sciHtml(res,4);
+  else if(want==='dec'){const y=Number(res.toPrecision(6));rh=minus(String(y).replace('.',','))}
+  h+=' <span>=</span> <b>'+rh+' '+compHtml(tgt)+'</b></span>';
+  return h;
+}
+function whyLine(x,y){
+  const A=U[x],B=U[y];
+  const big=si(x)>=si(y)?x:y,small=big===x?y:x,e=eq(big,small);
+  const eqs='1 '+ud(big)+' = '+fmtF(e.vy)+' '+ud(small);
+  if(A.fam===B.fam&&FAMS[A.fam]){
+    const st=Math.abs(A.idx-B.idx),per=FAMS[A.fam].step;
+    const zz=st*per;
+    const how=per===1?(st+(st===1?' escalón':' escalones')):(st+(st===1?' escalón':' escalones')+' × '+per+' ceros = '+zz+' ceros');
+    return'Entre '+ud(big)+' y '+ud(small)+' hay '+how+' → '+eqs+'.';
+  }
+  if(A.dim==='volumen'&&A.fam!==B.fam)return'Equivalencia entre volumen y capacidad: '+'1 '+ud(x)+' = 1 '+ud(y)+'.';
+  return'Equivalencia: '+eqs+'.';
+}
+function eqText(x,y){const big=si(x)>=si(y)?x:y,small=big===x?y:x,e=eq(big,small);return'<span class="mono">1 '+ud(big)+' = '+fmtF(e.vy)+' '+ud(small)+'</span>'}
+
+/* ---------- Generadores ---------- */
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function niceVal(){switch(rint(0,5)){case 0:return rint(2,999);case 1:return rint(11,99)/10;case 2:return rint(1,99)/100;case 3:return pick([0.5,0.25,0.02,0.45,0.003,1.5,7.25]);case 4:return rint(1,9)*Math.pow(10,rint(2,4));default:return rint(101,999)/10}}
+function tolFor(units){if(units.some(s=>s==='mes'||s==='año'))return 0.02;if(units.some(s=>U[s]&&U[s].dim==='presion'))return 0.003;return 1e-6}
+
+function makeFactorEx(cat,value,srcStr,tgtStr,nStart,opt){
+  opt=opt||{};
+  const src=comp(srcStr),tgt=comp(tgtStr);
+  const all=Object.keys(src).concat(Object.keys(tgt));
+  const dims=[...new Set(all.map(s=>U[s].dim))];
+  const units=[];dims.forEach(d=>DIM_UNITS[d].forEach(s=>units.push(s)));
+  const F=canonFactors(srcStr,tgtStr);
+  const expected=clean(value*siComp(src)/siComp(tgt));
+  const timeish=all.some(s=>s==='mes'||s==='año');
+  const vs=opt.sciValue?sciHtml(value,4):fmt(value);
+  const tail=opt.want==='sci'?' y escribe el resultado en <b>notación científica</b>':opt.want==='dec'?' y escribe el resultado en <b>forma decimal</b>':'';
+  return{cat,mode:'factor',value,valueHtml:vs,want:opt.want||null,srcStr,tgtStr,src,tgt,units,F,expected,nStart:nStart||1,tolRes:timeish?0.02:0.006,
+    prompt:'Pasa <b>'+vs+' '+compHtml(src)+'</b> a <b>'+compHtml(tgt)+'</b>'+tail,
+    short:vs+' '+compHtml(src)+' a '+compHtml(tgt),unitLabel:compHtml(tgt)};
+}
+function genCombo(){
+  const fams=['masa','longitud','superficie','volumen','capacidad'];
+  for(let t=0;t<200;t++){
+    const fam=pick(fams),f=FAMS[fam],n=f.units.length;let i,j;
+    do{i=rint(0,n-1);j=rint(0,n-1)}while(i===j);
+    const a=f.units[i],b=f.units[j];
+    if(Math.random()<.5){ // resultado en notación científica
+      const v=clean(pick([rint(2,999),rint(11,99)/10,rint(1,9)*Math.pow(10,rint(2,3)),rint(1,99)/100]));
+      const r=v*ratio(a,b);
+      if(Math.abs(r)>=1e5||Math.abs(r)<1e-3)return makeFactorEx('combo',v,a,b,1,{want:'sci'});
+    }else{ // dato en notación científica, resultado decimal
+      const r=clean(pick([rint(2,999),rint(11,999)/10,rint(1,99)/100,rint(101,999)/100]));
+      const v=clean(r*ratio(b,a));
+      if(Math.abs(v)>=1e5||Math.abs(v)<1e-3)return makeFactorEx('combo',v,a,b,1,{want:'dec',sciValue:true});
+    }
+  }
+  return genMetric('volumen');
+}
+function genMetric(fam){
+  const f=FAMS[fam],n=f.units.length,maxS={masa:5,longitud:5,capacidad:5,superficie:4,volumen:3}[fam];let i,j;
+  do{i=rint(0,n-1);j=rint(0,n-1)}while(i===j||Math.abs(i-j)>maxS);
+  return makeFactorEx(fam,clean(niceVal()),f.units[i],f.units[j],1);
+}
+function genVolCap(){
+  const cub=pick(['m3','dm3','cm3','mm3','dam3']),cap=pick(FAMS.capacidad.units);
+  if(cub==='mm3'&&cap==='kL'||cub==='dam3'&&cap==='mL'&&Math.random()<.5)return genVolCap();
+  return Math.random()<.5?makeFactorEx('volcap',clean(niceVal()),cub,cap,1):makeFactorEx('volcap',clean(niceVal()),cap,cub,1);
+}
+function genTime(){
+  const pairs=[['min','s'],['h','min'],['h','s'],['s','min'],['min','h'],['d','h'],['d','s'],['sem','d'],['sem','h'],['año','sem'],['año','d'],['d','año'],['mes','h'],['d','min'],['s','h']];
+  const[a,b]=pick(pairs);let v;
+  if(si(a)>si(b))v=pick([rint(2,40),rint(11,99)/10]);
+  else{const r=si(b)/si(a);let tries=0;do{v=clean(r*pick([0.5,1.5,2,2.5,3,0.25,4,10,0.75]));tries++}while(!Number.isInteger(v)&&tries<20);if(!Number.isInteger(v))v=rint(100,999)}
+  return makeFactorEx('tiempo',clean(v),a,b,1);
+}
+const DER=[
+  ['km/h','m/s',[100,72,250,36,90,120,54]],['m/s','km/h',[36,10,25,340,5,20]],['m/s','km/min',[33,20,15,50]],
+  ['cm/s','m/min',[25,50,8,150]],['km/s','mm/h',[650,3,0.5]],['m/min','km/h',[100,250,30]],
+  ['g/cm3','kg/L',[38,2.7,1.2,0.45,13.6]],['g/cm3','kg/m3',[2.7,1.2,7.8,0.92,13.6]],['kg/m3','g/cm3',[1000,2700,800,19300]],
+  ['kg/hL','g/cm3',[22.4,50,8]],['g/L','kg/mL',[28,50,120]],['dg/mL','g/daL',[450,25]],['g/mL','kg/L',[967,1.05]],
+  ['mg/L','g/mL',[0.0027,350,40]],['g/L','mg/cm3',[30,5,0.9]]
+];
+function genDer(){const[s,t,vals]=pick(DER);return makeFactorEx('derivadas',pick(vals),s,t,2)}
+const PRESL=[
+  ['atm','mmHg',[0.5,1.5,2,3,0.8]],['mmHg','atm',[380,750,1520,700,190]],['atm','Pa',[2,0.5,1.5,3]],['Pa','atm',[202650,50000,98000,303975]],
+  ['bar','Pa',[2,1.5,0.9,3.2]],['hPa','atm',[1013,950,1020,980]],['atm','bar',[2,1.5,0.5]],['mmHg','Pa',[380,760,700,1140]],
+  ['kPa','atm',[150,101.3,50,200]],['bar','atm',[2,1,0.9]],['mbar','Pa',[1013,950,1000]],['Pa','hPa',[101300,98500,120000]]
+];
+function genPres(){const[s,t,vals]=pick(PRESL);return makeFactorEx('presion',pick(vals),s,t,1)}
+/* --- Mol --- */
+const NA=6.022e23;
+const AM={H:1,C:12,N:14,O:16,Na:23,Mg:24,Al:27,S:32,Cl:35.5,K:39,Ca:40,Fe:56,Cu:63.5};
+const VM=22.4;
+const SUBS=[['H2O','molec'],['CO2','molec',1],['NH3','molec',1],['CH4','molec',1],['O2','molec',1],['N2','molec',1],['H2SO4','molec'],['C6H12O6','molec'],['HCl','molec',1],['Fe','at'],['Cu','at'],['Al','at'],['C','at'],['NaCl',null],['CaCO3',null]];
+const fhtml=f=>f.replace(/(\d+)/g,'<sub>$1</sub>');
+function molarMass(f){const parts=[];let M=0;f.replace(/([A-Z][a-z]?)(\d*)/g,(m,el,n)=>{n=n?+n:1;M+=n*AM[el];parts.push({el,n});return m});return{M:clean(M),parts}}
+function mText(f){const{M,parts}=molarMass(f);if(parts.length===1&&parts[0].n===1)return'M('+fhtml(f)+') = '+fmt(M)+' g/mol';
+  return'M('+fhtml(f)+') = '+parts.map(p=>(p.n>1?p.n+'·':'')+fmt(AM[p.el])).join(' + ')+' = '+fmt(M)+' g/mol'}
+function molEx(value,a,b,f){
+  const{M,parts}=molarMass(f);
+  const nEl={};parts.forEach(q=>nEl[q.el]=(nEl[q.el]||0)+q.n);
+  const dimOf=u=>U[u].dim;
+  const isAt=u=>/^atomos_/.test(dimOf(u));
+  const perMol=u=>isAt(u)?NA*nEl[U[u].el]:NA;
+  const toMol=(v,u)=>dimOf(u)==='masa'?v*si(u)/1e-3/M:dimOf(u)==='volumen'?v*si(u)/1e-3/VM:dimOf(u)==='cantidad'?v:v/perMol(u);
+  const fromMol=(n,u)=>dimOf(u)==='masa'?n*M*1e-3/si(u):dimOf(u)==='volumen'?n*VM*1e-3/si(u):dimOf(u)==='cantidad'?n:n*perMol(u);
+  const toCenter=x=>{const p=[x];if(dimOf(x)==='masa'&&x!=='g')p.push('g');if(dimOf(x)==='volumen'&&x!=='L')p.push('L');if(isAt(x))p.push('molec');if(x!=='mol')p.push('mol');return p};
+  const p0=toCenter(a).concat(toCenter(b).reverse().slice(1));
+  const p=p0.filter((q,i)=>i===0||q!==p0[i-1]);
+  const F=[];
+  for(let i=0;i<p.length-1;i++){const x=p[i],y=p[i+1];let vx,vy,why;
+    if(dimOf(x)===dimOf(y)){const e=eq(x,y);vx=e.vx;vy=e.vy;why=whyLine(x,y)}
+    else if(isAt(x)||isAt(y)){const at=isAt(x)?x:y,k=nEl[U[at].el];
+      if(at===y){vx=1;vy=k}else{vx=k;vy=1}
+      why='Cada molécula de '+fhtml(f)+' tiene '+k+(k===1?' átomo':' átomos')+' de '+U[at].el+' → 1 molécula = '+k+' '+(k===1?SING[at]:DISP[at])+'.'}
+    else{const other=x==='mol'?y:x;const vo=clean(fromMol(1,other));
+      if(x==='mol'){vx=1;vy=vo}else{vx=vo;vy=1}
+      why=dimOf(other)==='masa'?mText(f)+' → 1 mol de '+fhtml(f)+' = '+fmt(vo)+' g.':
+          dimOf(other)==='volumen'?'Volumen molar: en condiciones normales, 1 mol de cualquier gas ocupa 22,4 L.':
+          'Número de Avogadro: 1 mol = 6,022·10<sup>23</sup> '+DISP[other]+'.'}
+    F.push({num:{v:vy,u:y},den:{v:vx,u:x},why});
+  }
+  const expected=clean(fromMol(toMol(value,a),b));
+  const pName=u=>ud(u);
+  const els=Object.keys(nEl).map(e=>e+' = '+fmt(AM[e])+' u').join(' · ');
+  const sub=SUBS.find(s=>s[0]===f);
+  const atU=[a,b].filter(isAt);
+  const units=['kg','g','mg','mol'].concat(sub[1]?[sub[1]]:[]).concat(atU.length?Object.keys(nEl).map(ensureAt):[]).concat(sub[2]?['L','mL','dm3']:[]);
+  const gasV=dimOf(a)==='volumen'||dimOf(b)==='volumen';
+  const lbl=(v,u)=>fmtF(v)+' '+(v===1&&SING[u]?SING[u]:ud(u));
+  const eqTextMol=(x,y)=>{let A=fromMol(1,x),B=fromMol(1,y);
+    const part=u=>dimOf(u)==='particulas'||isAt(u);
+    if(part(x)&&part(y)){const m=Math.min(A,B);A=clean(A/m);B=clean(B/m);return'<span class="mono">'+lbl(A,x)+' = '+lbl(B,y)+'</span>'}
+    return'<span class="mono">'+lbl(clean(A),x)+' = '+lbl(clean(B),y)+'</span>'+(x!=='mol'&&y!=='mol'?' (lo que hay en 1 mol)':'')};
+  const data='Masas atómicas: '+els+' · N<sub>A</sub> = 6,022·10<sup>23</sup>'+(gasV?' · V<sub>m</sub> = 22,4 L/mol en CN':'');
+  const ofF=' de <b>'+fhtml(f)+'</b>'+(gasV?' (gas, en CN)':'');
+  let prompt;
+  if(isAt(b))prompt='¿Cuántos <b>'+ud(b)+'</b> hay en <b>'+fmt(value)+' '+ud(a)+'</b>'+ofF+'?';
+  else if(isAt(a))prompt='¿Cuántos <b>'+ud(b)+'</b>'+ofF+' contienen <b>'+fmt(value)+' '+ud(a)+'</b>?';
+  else prompt='Pasa <b>'+fmt(value)+' '+ud(a)+'</b>'+ofF+' a <b>'+ud(b)+'</b>';
+  return{cat:'mol',mode:'factor',value,valueHtml:fmt(value),want:null,srcStr:a,tgtStr:b,src:comp(a),tgt:comp(b),units,F,expected,resOverride:expected,nStart:1,tolRes:0.006,toMol,eqTextMol,
+    prompt:prompt+'<span class="help" style="display:block;margin-top:4px">'+data+'</span>',
+    short:fmt(value)+' '+pName(a)+' de '+fhtml(f)+' a '+pName(b),unitLabel:pName(b)};
+}
+function genMol(){
+  const[f,pu,gas]=pick(SUBS);const{M,parts}=molarMass(f);
+  let pairs=pu?[['g','mol'],['mol','g'],['mol',pu],[pu,'mol'],['g',pu],[pu,'g'],['kg','mol'],['mol','kg'],['mg',pu]]:[['g','mol'],['mol','g'],['kg','mol'],['mol','kg']];
+  if(pu==='molec'){const at=ensureAt(pick(parts).el);pairs=pairs.concat([['g',at],['mol',at],['g',at],[at,'mol'],[at,'g']]);if(gas)pairs.push(['L',at])}
+  if(gas)pairs=pairs.concat([['L','mol'],['mol','L'],['g','L'],['L','g'],['L',pu],[pu,'L'],['mL','mol'],['dm3','mol']]);
+  const[a,b]=pick(pairs);const n=pick([0.5,2,3,0.25,1.5,0.1,4,5,0.2,2.5]);
+  let v;const da=U[a].dim;
+  if(da==='cantidad')v=n;
+  else if(da==='particulas')v=Number((n*NA).toPrecision(4));
+  else if(/^atomos_/.test(da)){const k=parts.filter(q=>q.el===U[a].el).reduce((s,q)=>s+q.n,0);v=Number((n*k*NA).toPrecision(4))}
+  else if(a==='L'||a==='dm3')v=clean(n*VM);
+  else if(a==='mL')v=clean(pick([0.01,0.02,0.05,0.1])*VM*1000);
+  else if(a==='g')v=clean(n*M);
+  else if(a==='kg')v=clean(n*pick([10,20,50,100])*M/1000);
+  else v=clean(pick([0.001,0.002,0.005,0.01])*M*1000);
+  return molEx(v,a,b,f);
+}
+function genTemp(){
+  if(Math.random()<.5){const t=pick([-20,25,100,-196,37,0,15,-40,60,-78]);return{cat:'temperatura',mode:'temp',value:t,expected:t+273,tolAbs:0.2,
+    prompt:'Pasa <b>'+fmt(t)+' °C</b> a <b>K</b>',short:fmt(t)+' °C a K',unitLabel:'K',
+    solution:'<p class="mono">T = t + 273 = '+fmt(t)+' + 273 = <b>'+fmt(t+273)+' K</b></p><p class="help">Con 273,15 saldría '+fmt(clean(t+273.15))+' K; también se da por bueno.</p>'}}
+  const T=pick([300,77,373,250,310,200,400,273,90]);return{cat:'temperatura',mode:'temp',value:T,expected:T-273,tolAbs:0.2,
+    prompt:'Pasa <b>'+fmt(T)+' K</b> a <b>°C</b>',short:fmt(T)+' K a °C',unitLabel:'°C',
+    solution:'<p class="mono">t = T − 273 = '+fmt(T)+' − 273 = <b>'+fmt(T-273)+' °C</b></p><p class="help">Con 273,15 saldría '+fmt(clean(T-273.15))+' °C; también se da por bueno.</p>'};
+}
+function decStr(x,dp){return minus(x.toFixed(dp).replace('.',','))}
+function genNot(){
+  const t=rint(0,2);
+  if(t===0){const mant=rint(101,999)/100;let x,shown,ex;
+    if(Math.random()<.5){ex=rint(4,9);x=Math.round(mant*Math.pow(10,ex));shown=String(x)}
+    else{ex=-rint(2,6);x=clean(mant*Math.pow(10,ex));shown=decStr(x,2-ex)}
+    return{cat:'notacion',mode:'notation',want:'sci',expected:x,tolRes:0.01,prompt:'Escribe en notación científica: <b>'+shown+'</b>',
+      solution:'<p>Mueve la coma hasta dejar una sola cifra entera y cuenta los puestos: <b class="mono">'+sciHtml(x,3)+'</b></p><p class="help">'+(ex>0?'Número grande → exponente positivo.':'Número pequeño → exponente negativo.')+'</p>'}}
+  if(t===1){const m2=pick([rint(11,999),rint(1001,99999)/100,rint(1,99)/1000]);const ex=rint(-8,8);const x=clean(m2*Math.pow(10,ex));
+    return{cat:'notacion',mode:'notation',want:'sci',expected:x,tolRes:0.01,prompt:'Corrige para que quede en notación científica: <b class="mono">'+minus(String(m2).replace('.',','))+'·10<sup>'+minus(ex)+'</sup></b>',
+      solution:'<p>Deja una sola cifra entera y compensa el exponente: <b class="mono">'+sciHtml(x,4)+'</b></p><p class="help">Si mueves la coma a la izquierda, el exponente sube; si la mueves a la derecha, baja.</p>'}}
+  const m=rint(11,99)/10;const ex=pick([-5,-4,-3,-2,-1,2,3,4,5,6]);const x=clean(m*Math.pow(10,ex));
+  return{cat:'notacion',mode:'notation',want:'dec',expected:x,tolRes:1e-6,prompt:'Escribe en forma decimal: <b class="mono">'+sciHtml(x,2)+'</b>',
+    solution:'<p class="mono"><b>'+(ex<0?decStr(x,1-ex):String(Math.round(x)))+'</b></p><p class="help">'+(ex<0?'Exponente negativo: mueve la coma '+(-ex)+' puestos a la izquierda.':'Exponente positivo: mueve la coma '+ex+' puestos a la derecha.')+'</p>'};
+}
+const CATS={
+  masa:{name:'Masa',meta:'kg · g · mg',gen:()=>genMetric('masa')},
+  longitud:{name:'Longitud',meta:'km · m · mm',gen:()=>genMetric('longitud')},
+  superficie:{name:'Superficie',meta:'m² · cm²',gen:()=>genMetric('superficie')},
+  volumen:{name:'Volumen',meta:'m³ · cm³',gen:()=>genMetric('volumen')},
+  capacidad:{name:'Capacidad',meta:'L · mL',gen:()=>genMetric('capacidad')},
+  volcap:{name:'Volumen ↔ capacidad',meta:'dm³ = L',gen:genVolCap},
+  tiempo:{name:'Tiempo',meta:'h · min · s',gen:genTime},
+  derivadas:{name:'Magnitudes derivadas',meta:'km/h · g/cm³',gen:genDer},
+  notacion:{name:'Notación científica',meta:'a·10ⁿ',gen:genNot},
+  combo:{name:'Cambio + notación científica',meta:'a·10ⁿ ↔ decimal',gen:genCombo},
+  temperatura:{name:'Temperatura',meta:'°C ↔ K',gen:genTemp},
+  mezcla:{name:'Todo mezclado',meta:'2º ESO',gen:()=>CATS[pick(['masa','longitud','superficie','volumen','capacidad','volcap','tiempo','derivadas','temperatura'])].gen()},
+  presion:{name:'Presión',meta:'atm · Pa · mmHg',tag:'3º ESO',gen:genPres},
+  mol:{name:'El mol',meta:'g ↔ mol ↔ partículas',tag:'4º ESO',gen:genMol}
+};
+
+/* ---------- Aprende: ejemplos y escalera ---------- */
+document.querySelectorAll('[data-example]').forEach(el=>{
+  const[v,s,t]=el.dataset.example.split('|');const val=parseFloat(v);const F=canonFactors(s,t);
+  let h=chainHtml(val,s,F,t);
+  h+='<div class="why">'+F.map(f=>'<span>'+whyLine(f.num.u,f.den.u)+'</span>').join('')+'</div>';
+  el.innerHTML=h;
+});
+document.querySelectorAll('[data-mol]').forEach(el=>{
+  const[v,a,b,f]=el.dataset.mol.split('|');[a,b].forEach(u=>{if(/^at_/.test(u))ensureAt(u.slice(3))});const x=molEx(parseFloat(v),a,b,f);
+  el.innerHTML=chainHtml(x.value,a,x.F,b,null,null,x.expected)+'<div class="why">'+x.F.map(q=>'<span>'+q.why+'</span>').join('')+'</div>';
+});
+const toc=document.getElementById('toc');
+document.querySelectorAll('#view-aprende .lesson').forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a.querySelector('h2').textContent;b.addEventListener('click',()=>a.scrollIntoView({behavior:'smooth',block:'start'}));toc.appendChild(b)});
+
+const LF=[['masa','g'],['longitud','m'],['capacidad','L'],['superficie','m²'],['volumen','m³']];
+let lfam='masa',lfrom=1,lto=4;
+function drawLadder(){
+  document.getElementById('ladder-fams').innerHTML=LF.map(([k,l])=>'<button type="button" class="chip" id="lf-'+k+'" aria-pressed="'+(k===lfam)+'" data-f="'+k+'">'+l+'</button>').join('');
+  const f=FAMS[lfam];
+  document.getElementById('ladder-steps').innerHTML=f.units.map((s,i)=>{
+    let c='step';if(i===3)c+=' base';const lo=Math.min(lfrom,lto),hi=Math.max(lfrom,lto);
+    if(lto!==null&&i>lo&&i<hi)c+=' inrange';if(i===lfrom)c+=' from';if(i===lto)c+=' to';
+    return'<button type="button" class="'+c+'" id="ls-'+i+'" data-i="'+i+'" aria-label="'+f.names[i]+'"><b>'+ud(s)+'</b><small>'+f.names[i]+'</small></button>'}).join('');
+  const out=document.getElementById('ladder-out');
+  if(lto===null){out.innerHTML='Partes de <b class="mono">'+ud(f.units[lfrom])+'</b>. Ahora pulsa la unidad de llegada.';return}
+  if(lfrom===lto){out.innerHTML='Elige dos unidades distintas.';return}
+  const a=f.units[lfrom],b=f.units[lto],st=Math.abs(lfrom-lto),z=st*f.step,e=eq(a,b);
+  const fac='<span class="sf"><span>'+fmtF(e.vy)+' '+ud(b)+'</span><span>'+fmtF(e.vx)+' '+ud(a)+'</span></span>';
+  out.innerHTML='De <b class="mono">'+ud(a)+'</b> a <b class="mono">'+ud(b)+'</b>: '+st+(st===1?' escalón':' escalones')+(f.step>1?' × '+f.step+' ceros':'')+' = 10<sup>'+z+'</sup>. '+
+    (lto>lfrom?'Bajas por la escalera: la unidad es más pequeña y el número se hace mayor.':'Subes por la escalera: la unidad es más grande y el número se hace menor.')+
+    '<div style="margin-top:6px">Factor: <span class="chain-static">'+fac+'</span></div>';
+}
+document.getElementById('ladder').addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(c){lfam=c.dataset.f;lfrom=1;lto=4;drawLadder();return}
+  const s=e.target.closest('.step');if(!s)return;const i=+s.dataset.i;
+  if(lto===null){lto=i}else{lfrom=i;lto=null}drawLadder();
+});
+drawLadder();
+
+/* ---------- Practica ---------- */
+let curCat='masa',cur=null,attempted=false;const score={ok:0,n:0,streak:0};
+function drawCats(){
+  const keys=Object.keys(CATS);
+  let h='<h3>Elige qué practicar</h3>';
+  keys.forEach(k=>{if(k==='presion')h+='<div class="sep" role="presentation"></div>';
+    const c=CATS[k];h+='<button type="button" class="cat" id="cat-'+k+'" data-c="'+k+'" aria-pressed="'+(k===curCat)+'"><span>'+c.name+(c.tag?'<span class="tag">'+c.tag+'</span>':'')+'</span><small>'+c.meta+'</small></button>'});
+  document.getElementById('cats').innerHTML=h;
+}
+document.getElementById('cats').addEventListener('click',e=>{const b=e.target.closest('.cat');if(!b)return;curCat=b.dataset.c;drawCats();newEx()});
+
+/* --- Zona de respuesta reutilizable (práctica y ensayo) --- */
+const EXS={};
+function fracHtml(ex,key){const i=ex._fc++;const id=key+'-f'+i;const opts='<option value="">unidad</option>'+ex.units.map(s=>'<option value="'+s+'">'+optLabel(s)+'</option>').join('');
+  return'<div class="frac"><div class="frow"><input type="text" class="nv" id="'+id+'-nv" autocomplete="off" placeholder="número" aria-label="Número del numerador"><select class="nu" id="'+id+'-nu" aria-label="Unidad del numerador">'+opts+'</select></div><div class="fbar"></div><div class="frow"><input type="text" class="dv" id="'+id+'-dv" autocomplete="off" placeholder="número" aria-label="Número del denominador"><select class="du" id="'+id+'-du" aria-label="Unidad del denominador">'+opts+'</select></div><button type="button" class="fdel" aria-label="Quitar este factor">×</button></div>'}
+function uiHtml(ex,key,resultOnly){
+  EXS[key]=ex;ex._fc=0;ex._ro=!!resultOnly;
+  const resBox='<span class="res"><input type="text" class="resin" id="'+key+'-res" autocomplete="off" placeholder="resultado" aria-label="Resultado"><button type="button" class="pow" title="Insertar potencia de 10">·10ⁿ</button>'+(ex.unitLabel?'<b class="qty">'+ex.unitLabel+'</b>':'')+'</span>';
+  if(ex.mode==='factor'&&!resultOnly){
+    let h='<div class="exui" data-ex="'+key+'"><div class="chain"><span class="qty">'+ex.valueHtml+' '+compHtml(ex.src)+'</span><span class="op">·</span><span class="fracs" style="display:contents">';
+    for(let i=0;i<ex.nStart;i++)h+=fracHtml(ex,key);
+    return h+'</span><button type="button" class="addf">+ factor</button><span class="op">=</span>'+resBox+'</div><div class="preview"></div>'+remainHtml(ex,ex.src)+'</div>';
+  }
+  return'<div class="exui" data-ex="'+key+'">'+resBox+'<div class="preview"></div></div>';
+}
+function remainHtml(ex,c){const m=compEq(c,ex.tgt);return'<div class="remain'+(m?' match':'')+'">Unidades tras simplificar: <b>'+compHtml(c)+'</b>'+(m?' <span>✓ coinciden con las que buscas</span>':'')+'</div>'}
+function readFracs(root){return[...root.querySelectorAll('.frac')].map(el=>({nv:el.querySelector('.nv').value.trim(),nu:el.querySelector('.nu').value,dv:el.querySelector('.dv').value.trim(),du:el.querySelector('.du').value}))}
+function updateRemain(root){const ex=EXS[root.dataset.ex],r=root.querySelector('.remain');if(!r)return;const c=Object.assign({},ex.src);
+  readFracs(root).forEach(f=>{if(f.nu)add(c,f.nu,1);if(f.du)add(c,f.du,-1)});r.outerHTML=remainHtml(ex,c)}
+function previewRes(root){const p=root.querySelector('.preview'),v=root.querySelector('.resin').value;if(!v.trim()){p.textContent='';return}const n=parseNum(v);p.innerHTML=n?'Entiendo: '+(n.sci?(n.mant===1?'':minus(String(n.mant).replace('.',','))+'·')+'10<sup>'+minus(n.exp)+'</sup>':fmt(n.value)):'No entiendo este número todavía.'}
+document.addEventListener('input',e=>{const root=e.target.closest('.exui');if(!root)return;if(e.target.classList.contains('resin'))previewRes(root);else updateRemain(root)});
+document.addEventListener('change',e=>{const root=e.target.closest('.exui');if(root)updateRemain(root)});
+document.addEventListener('click',e=>{const root=e.target.closest('.exui');if(!root)return;const t=e.target;
+  if(t.classList.contains('addf')){root.querySelector('.fracs').insertAdjacentHTML('beforeend',fracHtml(EXS[root.dataset.ex],root.dataset.ex));updateRemain(root)}
+  else if(t.classList.contains('fdel')){t.closest('.frac').remove();updateRemain(root)}
+  else if(t.classList.contains('pow')){const r=root.querySelector('.resin');r.value=r.value+'·10^';r.focus();previewRes(root)}});
+
+function evaluate(ex,root){
+  const msgs=[];let good=true;
+  const rv=root.querySelector('.resin').value;const pr=parseNum(rv);
+  if(ex.mode==='factor'&&!ex._ro){
+    const c=Object.assign({},ex.src);let used=0,factorsOk=true;
+    readFracs(root).forEach((f,k)=>{
+      if(!f.nv&&!f.nu&&!f.dv&&!f.du)return;used++;const lab='Factor '+(k+1);
+      if(f.nu)add(c,f.nu,1);if(f.du)add(c,f.du,-1);
+      if(!f.nv||!f.nu||!f.dv||!f.du){factorsOk=false;msgs.push(['bad',lab+': completa los dos números y las dos unidades.']);return}
+      const pn=parseNum(f.nv),pd=parseNum(f.dv);
+      if(!pn||!pd){factorsOk=false;msgs.push(['bad',lab+': no entiendo alguno de los números. Usa la coma decimal y escribe las potencias como 10^5.']);return}
+      if(f.nu===f.du){factorsOk=false;msgs.push(['bad',lab+': tiene la misma unidad arriba y abajo, así que no cambia nada.']);return}
+      if(ex.toMol&&U[f.nu].dim!==U[f.du].dim){
+        const a=ex.toMol(pn.value,f.nu),b=ex.toMol(pd.value,f.du);
+        if(relErr(a,b)>0.005){factorsOk=false;msgs.push(['bad',lab+': '+fmt(pn.value)+' '+ud(f.nu)+' no equivale a '+fmt(pd.value)+' '+ud(f.du)+' para esta sustancia. La equivalencia correcta es '+ex.eqTextMol(f.nu,f.du)+'.'])}
+        return;
+      }
+      if(U[f.nu].dim!==U[f.du].dim){factorsOk=false;msgs.push(['bad',lab+': arriba hay '+ud(f.nu)+' y abajo '+ud(f.du)+'. Miden magnitudes distintas, así que no pueden ser iguales.']);return}
+      const L=pn.value*si(f.nu),R=pd.value*si(f.du);
+      if(Math.abs(L-R)/Math.max(Math.abs(L),Math.abs(R))>tolFor([f.nu,f.du])){factorsOk=false;msgs.push(['bad',lab+': '+fmt(pn.value)+' '+ud(f.nu)+' no es igual a '+fmt(pd.value)+' '+ud(f.du)+'. La equivalencia correcta es '+eqText(f.nu,f.du)+'.']);return}
+      const bigVal=si(f.nu)>=si(f.du)?pn.value:pd.value;
+      if(isMetric(f.nu)&&isMetric(f.du)&&Math.abs(bigVal-1)>1e-9)msgs.push(['warn',lab+': está bien, aunque es más cómodo poner el 1 en la unidad mayor: '+eqText(f.nu,f.du)+'.']);
+    });
+    if(!used){factorsOk=false;msgs.push(['bad','Falta el factor de conversión: es la parte importante del ejercicio.'])}
+    else if(!compEq(c,ex.tgt)){factorsOk=false;
+      const rev=Object.keys(c).some(k=>Math.abs(c[k])>=2&&!ex.tgt[k]);
+      msgs.push(['bad','Tras simplificar te queda <b class="mono">'+compHtml(c)+'</b>, pero tienes que llegar a <b class="mono">'+compHtml(ex.tgt)+'</b>. '+(rev?'Parece que algún factor está al revés. ':'')+'La unidad que quieres eliminar va en el lado contrario del factor: si está arriba, en el denominador; si está dividiendo (como la h de km/h), en el numerador.'])}
+    let resOk=false;
+    const rc=resultCheck(ex,pr,rv);if(rc)msgs.push(rc);else resOk=true;
+    if(!resOk&&factorsOk&&pr&&relErr(pr.value,ex.expected)>ex.tolRes)msgs[msgs.length-1]=['bad','Tus factores están bien, pero el resultado no. Revisa la operación: multiplica por lo de arriba y divide entre lo de abajo.'];
+    good=factorsOk&&resOk;
+    if(good){msgs.unshift(['ok','¡Correcto! Factores bien colocados y resultado exacto.']);
+      const ax=Math.abs(ex.expected);if(!ex.want&&!pr.sci&&(ax>=1e5||ax<1e-3))msgs.push(['warn','Consejo: con tantas cifras conviene escribirlo en notación científica: <span class="mono">'+sciHtml(ex.expected,4)+'</span>.'])}
+  }else{
+    const rc=resultCheck(ex,pr,rv);
+    if(rc){good=false;msgs.push(rc)}else msgs.push(['ok','¡Correcto!']);
+  }
+  return{good,msgs};
+}
+function resultCheck(ex,pr,rv){
+  if(!String(rv).trim())return['bad','Escribe el resultado.'];
+  if(!pr)return['bad','No entiendo el resultado. Escríbelo como 0,045 o como 4,5·10^-2.'];
+  if(ex.mode==='temp')return Math.abs(pr.value-ex.expected)<=ex.tolAbs?null:['bad','No es correcto. Recuerda: aquí no hay factor; se suma o se resta 273.'];
+  if(relErr(pr.value,ex.expected)>ex.tolRes)return['bad',ex.mode==='notation'?'El valor no coincide. Cuenta otra vez cuántos puestos se mueve la coma.':'El resultado no es correcto.'];
+  if(ex.want==='sci'&&!(pr.sci&&Math.abs(pr.mant)>=1&&Math.abs(pr.mant)<10))return['bad',pr.sci?'El valor es correcto, pero en notación científica tiene que quedar una sola cifra entera (entre 1 y 9) antes de la coma.':'El valor es correcto, pero te pido el resultado en notación científica: escríbelo como a·10^n.'];
+  if(ex.want==='dec'&&pr.sci)return['bad','El valor es correcto, pero te pido el resultado en forma decimal, sin potencia de 10.'];
+  return null;
+}
+function solHtml(ex){
+  if(ex.mode==='factor')return'<div class="chainbox">'+chainHtml(ex.value,ex.srcStr,ex.F,ex.tgtStr,ex.valueHtml,ex.want,ex.resOverride)+'<div class="why">'+ex.F.map(f=>'<span>'+(f.why||whyLine(f.num.u,f.den.u))+'</span>').join('')+'</div></div>';
+  return ex.solution;
+}
+const msgHtml=msgs=>msgs.map(([c,t])=>'<div class="msg '+c+'">'+t+'</div>').join('');
+
+/* --- Práctica --- */
+function scoreHtml(){return'Aciertos '+score.ok+'/'+score.n+' · racha '+score.streak}
+function newEx(){
+  cur=CATS[curCat].gen();cur.catName=CATS[cur.cat]?CATS[cur.cat].name:'';attempted=false;
+  const card=document.getElementById('excard');
+  let h='<div class="card-head"><span class="pill">'+cur.catName+'</span><span class="score" id="score">'+scoreHtml()+'</span></div>';
+  h+='<p class="prompt">'+cur.prompt+'</p>'+uiHtml(cur,'pr');
+  h+='<div class="actions"><button type="button" class="btn primary" id="check">Comprobar</button><button type="button" class="btn" id="hint">Pista</button><button type="button" class="btn" id="showsol">Ver solución</button><button type="button" class="btn" id="next">Otro ejercicio</button></div>';
+  h+='<div class="fb" id="fb"></div><div id="sol"></div>';
+  if(cur.mode==='factor')h+='<p class="help">Escribe los números con coma decimal; las potencias, como 10^5 o 2,5·10^-3. Elige las unidades en los desplegables.</p>';
+  card.innerHTML=h;
+}
+const card=document.getElementById('excard');
+card.addEventListener('click',e=>{const t=e.target;
+  if(t.id==='check')check();else if(t.id==='hint')hint();else if(t.id==='showsol')showSol();else if(t.id==='next')newEx()});
+card.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();check()}});
+function setFb(msgs){document.getElementById('fb').innerHTML=msgHtml(msgs)}
+function tally(ok){if(attempted)return;attempted=true;score.n++;if(ok){score.ok++;score.streak++}else score.streak=0;document.getElementById('score').textContent=scoreHtml()}
+function check(){const r=evaluate(cur,card.querySelector('.exui'));tally(r.good);setFb(r.msgs)}
+function hint(){
+  const msgs=[];
+  if(cur.mode==='factor'){
+    msgs.push(['info','Necesitas '+cur.F.length+(cur.F.length===1?' factor.':' factores.')+' '+cur.F.map((f,i)=>'Factor '+(i+1)+': arriba <b class="mono">'+ud(f.num.u)+'</b>, abajo <b class="mono">'+ud(f.den.u)+'</b>.').join(' ')+' Pon el 1 delante de la unidad mayor.']);
+    const f=cur.F[0];if(f&&isMetric(f.num.u)&&isMetric(f.den.u)&&U[f.num.u].fam===U[f.den.u].fam)msgs.push(['info',whyLine(f.num.u,f.den.u).replace(/→.*$/,'→ ¿cuántos ceros lleva?')]);
+  }else if(cur.mode==='temp')msgs.push(['info','T (K) = t (°C) + 273. Para ir de K a °C se resta.']);
+  else msgs.push(['info',cur.want==='sci'?'Mueve la coma hasta que quede una sola cifra entera. Cada puesto es una unidad en el exponente.':'El exponente te dice cuántos puestos se mueve la coma: positivo a la derecha, negativo a la izquierda.']);
+  setFb(msgs);
+}
+function showSol(){tally(false);document.getElementById('sol').innerHTML='<div class="sol"><h3>Solución</h3>'+solHtml(cur)+'</div>'}
+
+/* ---------- Examen ---------- */
+let exam=[];
+function drawExam(){
+  const ro=!document.getElementById('exam-factors').checked;
+  const list=document.getElementById('exam-list');list.classList.toggle('wide',!ro);
+  list.innerHTML=exam.map((q,i)=>'<div class="q" id="q'+i+'"><span class="num">'+(i+1)+'</span><div class="qbody"><span class="txt">'+q.short+'</span>'+uiHtml(q,'x'+i,ro)+'<div class="corr" id="ec'+i+'"></div></div></div>').join('');
+  document.getElementById('exam-grade').innerHTML='';
+}
+function newExam(){
+  const pres=document.getElementById('exam-pres').checked;
+  const plan=['masa','masa','longitud','longitud','longitud','superficie','superficie','volumen','volumen','capacidad','capacidad','volcap','volcap','tiempo','tiempo','tiempo','derivadas','derivadas','derivadas','temperatura'];
+  if(pres){plan[2]='presion';plan[14]='presion'}
+  exam=plan.map(k=>CATS[k].gen());
+  for(let i=exam.length-1;i>0;i--){const j=rint(0,i);[exam[i],exam[j]]=[exam[j],exam[i]]}
+  drawExam();
+}
+function checkExam(){
+  let ok=0;
+  exam.forEach((q,i)=>{
+    const root=document.querySelector('#q'+i+' .exui');const r=evaluate(q,root);
+    if(r.good)ok++;
+    document.getElementById('q'+i).className='q '+(r.good?'ok':'bad');
+    const bad=r.msgs.filter(m=>m[0]==='bad');
+    document.getElementById('ec'+i).innerHTML=r.good?'<span class="okmark">Bien</span>':msgHtml(bad)+'<details><summary>Ver la solución</summary>'+solHtml(q)+'</details>';
+  });
+  const nota=ok*0.5;
+  const req=document.getElementById('exam-factors').checked;
+  document.getElementById('exam-grade').innerHTML='<div class="grade"><span class="big">'+String(nota).replace('.',',')+'</span><span>sobre 10 · '+ok+' de 20 cambios correctos'+(req?' (con factores bien planteados)':'')+'. '+(nota>=9?'Dominas los factores de conversión.':nota>=5?'Aprobado. Repasa en Practica los tipos que has fallado.':'Vuelve a la pestaña Aprende y practica por tipos antes de repetir el ensayo.')+'</span></div>';
+  const g=document.getElementById('exam-grade');if(g.scrollIntoView)g.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('exam-new').addEventListener('click',newExam);
+document.getElementById('exam-pres').addEventListener('change',newExam);
+document.getElementById('exam-factors').addEventListener('change',drawExam);
+document.getElementById('exam-check').addEventListener('click',checkExam);
+
+/* ---------- Pestañas ---------- */
+const VIEWS=['aprende','practica','examen'];
+function show(v){if(!VIEWS.includes(v))v='aprende';VIEWS.forEach(x=>{document.getElementById('view-'+x).hidden=x!==v;document.getElementById('tab-'+x).setAttribute('aria-selected',String(x===v))});try{history.replaceState(null,'','#'+v)}catch(e){}}
+document.querySelector('nav.tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){show(b.dataset.view);window.scrollTo(0,0)}});
+
+drawCats();newEx();newExam();
+show((location.hash||'').slice(1));
+})();
+</script>
+
+</body></html>
